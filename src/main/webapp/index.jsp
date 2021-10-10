@@ -5,16 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>My Shop</title>
 
 <%@include file="components/common_css_js.jsp" %>
 
 </head>
 <body>
-	<h1>
-		<%
-		out.println(FactoryProvider.getFactory());
-		%>
-	</h1>
+	<%@include file="components/navbar.jsp" %>
 </body>
 </html>
