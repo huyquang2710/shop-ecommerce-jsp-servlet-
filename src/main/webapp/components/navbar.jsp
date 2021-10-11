@@ -1,3 +1,8 @@
+<%@page import="com.shop.constants.SessionAttr"%>
+<%@page import="com.shop.entities.User"%>
+<%
+	User user1 = (User) session.getAttribute(SessionAttr.CURRENT_USER);
+%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light custom-bg">
   <div class="container" >
   	<a class="navbar-brand" href="#">Shop</a>
@@ -24,12 +29,30 @@
     </ul>
 
 	<ul class="navbar-nav ml-auto" >
-		<li class="nav-item active" >
-			<a class="nav-link" href="login" >Login</a>
-		</li>
-		<li class="nav-item active" >
-			<a class="nav-link" href="register" >Register</a>
-		</li>
+	
+		<%
+			if(user1 == null) {
+				%>
+				<li class="nav-item active">
+					<a class="nav-link" href="login">Login</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="register">Register</a>
+				</li>
+				<%	
+			} else {
+				%>
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Welcome: <%= user1.getUsername() %></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="logout">Logout</a>
+				</li>
+				<%	
+			}
+		%>
+	
+		
 	</ul>
 
   </div>

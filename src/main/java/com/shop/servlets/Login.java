@@ -15,15 +15,33 @@ import com.shop.daos.UserDAO;
 import com.shop.entities.User;
 import com.shop.helper.FactoryProvider;
 
-@WebServlet(urlPatterns = "/login")
+@WebServlet(urlPatterns = {"/login", "/logout"})
 public class Login extends HttpServlet{
 
 	private static final long serialVersionUID = 4718481161313584980L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String path = req.getServletPath();
+		switch (path) {
+		case "/login": {
+			doGetLogin(req, resp);
+			break;
+			}
+		case "/logout": {
+			doGetLogout(req, resp);
+			break;
+			}
+		}
+	}
+	private void doGetLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;chartset=UTF-8");
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/login.jsp");
 		requestDispatcher.forward(req, resp);
+	}
+	private void doGetLogout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession httpSession = req.getSession();
+		httpSession.removeAttribute(SessionAttr.CURRENT_USER);
+		resp.sendRedirect("login");
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
