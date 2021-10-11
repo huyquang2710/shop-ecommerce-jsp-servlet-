@@ -17,12 +17,19 @@
 		<div class="row">
 			<div class="col-md-4 offset-md-4" > 
 				<div class="card">
+					
+					<%@include file="../components/message.jsp" %>
+					
 					<div class="card-body px-5">
 						<h3 class="text-center mmy-3" >Sign up here</h3>
 						<form action="register" method="post">
 							<div class="form-group">
 								<label for="username">Username</label> 
 								<input type="text" class="form-control" id="username" name="username" placeholder="Username"> 
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label> 
+								<input type="email" class="form-control" id="email" name="email" placeholder="Email"> 
 							</div>
 							<div class="form-group">
 								<label for="phone">Phone</label> 

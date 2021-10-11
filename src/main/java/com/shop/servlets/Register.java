@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -22,11 +23,16 @@ public class Register extends HttpServlet{
 	private static final long serialVersionUID = 6685169167985897135L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html;chartset=UTF-8");
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/register.jsp");
 		requestDispatcher.forward(req, resp);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html;chartset=UTF-8");
+		
+		Session session = FactoryProvider.getFactory().openSession();
+		Transaction transaction = session.beginTransaction();
 		PrintWriter printWriter = resp.getWriter();
 		try {
 			// get data from views
@@ -41,8 +47,7 @@ public class Register extends HttpServlet{
 				printWriter.println("Name is Blank");
 				return;
 			} 
-			Session session = FactoryProvider.getFactory().openSession();
-			Transaction transaction = session.beginTransaction();
+			
 			
 			// register
 			User user = new User();
@@ -56,10 +61,15 @@ public class Register extends HttpServlet{
 						
 			Integer id = (Integer) session.save(user);
 			System.out.println("ID: " + id);
+			
 			//close
 			transaction.commit();
 			session.close();
-			printWriter.println("Register success");
+			
+			HttpSession httpSession = req.getSession();
+			httpSession.setAttribute("message", "Registration Successful !!!");
+			
+			resp.sendRedirect("register");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
