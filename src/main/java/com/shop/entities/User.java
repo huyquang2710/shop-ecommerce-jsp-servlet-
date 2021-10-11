@@ -35,14 +35,17 @@ public class User {
 	private String picture;
 	@Column(length = 1500)
 	private String address;
+	@Column(length = 12)
+	private String type;
 	
-	public User(String username, String email, String password, String phone, String picture, String address) {
+	public User(String username, String email, String password, String phone, String picture, String address, String type) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.phone = phone;
 		this.picture = picture;
 		this.address = address;
+		this.type = type;
 	}
 	
 	
