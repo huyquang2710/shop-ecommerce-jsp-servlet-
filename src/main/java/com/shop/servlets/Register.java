@@ -57,7 +57,7 @@ public class Register extends HttpServlet{
 			user.setPhone(phone);
 			user.setPicture("default.img");
 			user.setAddress(address);
-			user.setType("nomal");
+			user.setType("normal");
 						
 			Integer id = (Integer) session.save(user);
 			System.out.println("ID: " + id);

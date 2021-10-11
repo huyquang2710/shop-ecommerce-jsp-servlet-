@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.shop.constants.SessionAttr;
 import com.shop.daos.UserDAO;
 import com.shop.entities.User;
 import com.shop.helper.FactoryProvider;
@@ -35,11 +36,22 @@ public class Login extends HttpServlet{
 		User user = userDAO.getUserByEmailAndPassword(email, password);
 		
 		HttpSession httpSession = req.getSession();
+		
+		//login
 		if(user == null) {
 			httpSession.setAttribute("message", "Invalid Details !! Try with another one");
 			resp.sendRedirect("login");
 		} else {
+			httpSession.setAttribute(SessionAttr.CURRENT_USER, user);
 			
+			//admin
+			if(user.getType().equals(SessionAttr.ROLE_ADMIN)) {
+				resp.sendRedirect("admin");
+			} else if(user.getType().equals(SessionAttr.ROLE_USER)) {
+				resp.sendRedirect("normal");
+			} else {
+				httpSession.setAttribute("message", "We have not identified user type");
+			}
 		}
 	}
 }

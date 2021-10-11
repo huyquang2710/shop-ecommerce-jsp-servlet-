@@ -22,7 +22,7 @@
 					
 					<div class="card-body px-5">
 						<h3 class="text-center mmy-3" >Sign ins here</h3>
-						<form action="register" method="post">
+						<form action="login" method="post">
 							<div class="form-group">
 								<label for="email">Email</label> 
 								<input type="text" class="form-control" id="email" name="email" placeholder="Email"> 
