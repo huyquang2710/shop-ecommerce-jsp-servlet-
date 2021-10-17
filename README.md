@@ -1,1 +1,1 @@
-# shop-ecommerce-jsp-servlet-
+# shop-ecommerce-servlet
